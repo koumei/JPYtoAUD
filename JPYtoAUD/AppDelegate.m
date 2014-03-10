@@ -18,6 +18,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+
+    UIStoryboard *sb = [self getStoryBoard];
+    
+    //ViewController *vc = [sb instantiateViewControllerWithIdentifier:@"iPhone"];
+    self.window.rootViewController = [sb instantiateViewControllerWithIdentifier:@"main"];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -144,6 +150,15 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (UIStoryboard*) getStoryBoard{
+    UIStoryboard *sb = nil;//[UIStoryboard storyboardWithName:@"iPad" bundle:nil];
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        sb = [UIStoryboard storyboardWithName:@"iPhone" bundle:nil];
+    }
+    return sb;
 }
 
 @end
